@@ -7499,12 +7499,12 @@ PrefabInstance:
     - target: {fileID: 8675915457954794083, guid: 28dcc02b0450a3f4fbb6c5fd57c026d4,
         type: 3}
       propertyPath: velocity.x
-      value: 0.35124362
+      value: 0.70813644
       objectReference: {fileID: 0}
     - target: {fileID: 8675915457954794083, guid: 28dcc02b0450a3f4fbb6c5fd57c026d4,
         type: 3}
       propertyPath: velocity.z
-      value: 0.08596516
+      value: 0.27185342
       objectReference: {fileID: 0}
     - target: {fileID: 8675915458194695970, guid: 28dcc02b0450a3f4fbb6c5fd57c026d4,
         type: 3}
