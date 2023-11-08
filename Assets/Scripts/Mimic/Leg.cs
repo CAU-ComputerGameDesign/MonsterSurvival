@@ -44,9 +44,11 @@ namespace MimicSpace
         public float maxOscillationSpeed;
         float oscillationProgress;
 
+        private Transform center;
+
         public Color myColor;
 
-        public void Initialize(Vector3 footPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime)
+        public void Initialize(Vector3 footPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime , Transform center)
         {
             myColor = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
             this.footPosition = footPosition;
@@ -84,6 +86,8 @@ namespace MimicSpace
             myMimic.legCount++;
             growTarget = 1;
 
+            this.center = center;
+
             isRemoved = false;
             canDie = false;
             isDeployed = false;
@@ -108,6 +112,7 @@ namespace MimicSpace
 
         private void Update()
         {
+            transform.localPosition = center.localPosition;
             // The growTarget is set to 1 if the leg must grow, and 0 if it must retract
             if (growTarget == 1 && Vector3.Distance(new Vector3(myMimic.legPlacerOrigin.x, 0, myMimic.legPlacerOrigin.z), new Vector3(footPosition.x, 0, footPosition.z)) > maxLegDistance && canDie && myMimic.deployedLegs > myMimic.minimumAnchoredParts)
                 growTarget = 0;

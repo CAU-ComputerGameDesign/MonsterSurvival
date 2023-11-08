@@ -9,6 +9,8 @@ namespace MimicSpace
         [Header("Animation")]
         public GameObject legPrefab;
 
+        public Transform center;
+
         [Range(2, 20)]
         public int numberOfLegs = 5;
         [Tooltip("The number of splines per leg")]
@@ -133,7 +135,7 @@ namespace MimicSpace
                 StartCoroutine("NewLegCooldown");
                 for (int i = 0; i < partsPerLeg; i++)
                 {
-                    RequestLeg(myHit, legResolution, maxLegDistance, Random.Range(minGrowCoef, maxGrowCoef), this, lifeTime);
+                    RequestLeg(myHit, legResolution, maxLegDistance, Random.Range(minGrowCoef, maxGrowCoef), this, lifeTime, center);
                     if (legCount >= maxLegs)
                         return;
                 }
@@ -141,7 +143,7 @@ namespace MimicSpace
         }
 
         // object pooling to limit leg instantiation
-        void RequestLeg(Vector3 footPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime)
+        void RequestLeg(Vector3 footPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime, Transform center)
         {
             GameObject newLeg;
             if (availableLegPool.Count > 0)
@@ -151,10 +153,10 @@ namespace MimicSpace
             }
             else
             {
-                newLeg = Instantiate(legPrefab, transform.position, Quaternion.identity);
+                newLeg = Instantiate(legPrefab, center.localPosition + transform.position, Quaternion.identity);
             }
             newLeg.SetActive(true);
-            newLeg.GetComponent<Leg>().Initialize(footPosition, legResolution, maxLegDistance, growCoef, myMimic, lifeTime);
+            newLeg.GetComponent<Leg>().Initialize(footPosition, legResolution, maxLegDistance, growCoef, myMimic, lifeTime, center);
             newLeg.transform.SetParent(myMimic.transform);
         }
 
