@@ -13,10 +13,18 @@ public class AnimalsController : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     
     // Start is called before the first frame update
+
     void Start()
+    {
+        OnEnable();
+    }
+    
+    void OnEnable()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        target = GameManager.Instance.Player.transform;
         
         animator.Play("Run");
     }
