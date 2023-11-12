@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using Color = UnityEngine.Color;
 
 namespace MimicSpace
 {
@@ -47,6 +49,7 @@ namespace MimicSpace
         private Transform center;
 
         public Color myColor;
+
 
         public void Initialize(Vector3 footPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime , Transform center)
         {
@@ -112,6 +115,8 @@ namespace MimicSpace
 
         private void Update()
         {
+            legLine.widthMultiplier = myMimic.legSize;
+            
             transform.localPosition = center.localPosition;
             // The growTarget is set to 1 if the leg must grow, and 0 if it must retract
             if (growTarget == 1 && Vector3.Distance(new Vector3(myMimic.legPlacerOrigin.x, 0, myMimic.legPlacerOrigin.z), new Vector3(footPosition.x, 0, footPosition.z)) > maxLegDistance && canDie && myMimic.deployedLegs > myMimic.minimumAnchoredParts)

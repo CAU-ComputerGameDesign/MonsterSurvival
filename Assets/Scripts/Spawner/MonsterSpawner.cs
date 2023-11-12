@@ -11,10 +11,6 @@ public class MonsterSpawner : MonoBehaviour
     private float timer;
     // Update is called once per frame
 
-    void Awake()
-    {
-        spawnPoints = GetComponentsInChildren<Transform>();
-    }
     void Update()
     {
         transform.position = GameManager.Instance.Player.transform.position;
@@ -24,8 +20,11 @@ public class MonsterSpawner : MonoBehaviour
 
         if (timer >= 1f)
         {
-            GameObject monster = MonsterPool.Instance.Get(Random.Range(0, 8));
-            monster.transform.position = spawnPoints[Random.Range(1, spawnPoints.Length)].position;
+            Vector3 point = spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position;
+            RaycastHit hit;
+            if (Physics.Raycast(point, -Vector3.up, out hit))
+                point = new Vector3(point.x, hit.point.y, point.z);
+            GameObject monster = MonsterPool.Instance.Get(Random.Range(0, 8), point);
             timer = 0f;
         }
     }

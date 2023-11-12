@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -41,7 +42,7 @@ namespace Monster
             }
         }
 
-        public GameObject Get(int index)
+        public GameObject Get(int index, Vector3 position)
         {
             GameObject select = null;
 
@@ -50,6 +51,7 @@ namespace Monster
                 if (!item.activeSelf)
                 {
                     select = item;
+                    select.transform.position = position;
                     select.SetActive(true);
                     break;
                 }
@@ -57,7 +59,7 @@ namespace Monster
 
             if (!select)
             {
-                select = Instantiate(prefabs[index], transform);
+                select = Instantiate(prefabs[index], position, new quaternion(0, 0, 0, 0),  transform);
                 pools[index].Add(select);
             }
 

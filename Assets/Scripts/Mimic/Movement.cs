@@ -32,8 +32,8 @@ namespace MimicSpace
             myMimic.velocity = velocity;
 
             transform.position = transform.position + velocity * Time.deltaTime;
-            RaycastHit hit;
             Vector3 destHeight = transform.position;
+            RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up * 5f, -Vector3.up, out hit))
                 destHeight = new Vector3(transform.position.x, hit.point.y + height, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, destHeight, velocityLerpCoef * Time.deltaTime);

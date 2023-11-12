@@ -55,6 +55,9 @@ namespace MimicSpace
         [Tooltip("This must be updates as the Mimin moves to assure great leg placement")]
         public Vector3 velocity;
 
+
+        public float legSize = 0.4f;
+
         void Start()
         {
             ResetMimic();
