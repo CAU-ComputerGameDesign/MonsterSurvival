@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class AnimalsController : MonoBehaviour
     public Transform target;
 
     public NavMeshAgent navMeshAgent;
+
+    private Rigidbody rigid;
     
     // Start is called before the first frame update
 
@@ -21,6 +24,7 @@ public class AnimalsController : MonoBehaviour
     
     void OnEnable()
     {
+        rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
 
@@ -33,13 +37,30 @@ public class AnimalsController : MonoBehaviour
     void Update()
     {
         navMeshAgent.SetDestination(target.position);
-        if (navMeshAgent.velocity.magnitude > 0f)
+
+        float dist = Vector3.Distance(transform.position, target.position);
+        animator.SetFloat("Distance", dist);
+
+        if (dist > 10f)
         {
-            animator.Play("Run");
+            navMeshAgent.speed = 1.0f;
+            navMeshAgent.angularSpeed = 500f;
+        }
+        else if (dist > 2f)
+        {
+            navMeshAgent.speed = 2.5f;
+            navMeshAgent.angularSpeed = 500f;
         }
         else
         {
-            animator.Play("Idle_A");
+            navMeshAgent.speed = 0f;
+            navMeshAgent.angularSpeed = 0f;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
     }
 }

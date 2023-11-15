@@ -52,6 +52,12 @@ namespace MimicSpace
 
         List<GameObject> availableLegPool = new List<GameObject>();
 
+        
+        public int tentacleCount;
+        public int deployedTentacles;
+        
+        List<GameObject> availableTentaclePool = new List<GameObject>();
+
         [Tooltip("This must be updates as the Mimin moves to assure great leg placement")]
         public Vector3 velocity;
 
