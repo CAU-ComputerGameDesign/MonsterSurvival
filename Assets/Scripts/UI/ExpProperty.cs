@@ -12,7 +12,7 @@ public class ExpProperty : MonoBehaviour
 
         if (Vector3.Distance(target, transform.position) < GameManager.Instance.expRange)
         {
-            transform.position = Vector3.LerpUnclamped(transform.position, target, Time.deltaTime * 5f);
+            transform.position = Vector3.LerpUnclamped(transform.position, target, Time.deltaTime * 3f);
             if (Vector3.Distance(target, transform.position) < 1f)
             {
                 GameManager.Instance.RecycleEXPObject(gameObject);

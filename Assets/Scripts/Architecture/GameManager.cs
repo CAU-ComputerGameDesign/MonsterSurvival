@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
         {
             go = expPool[expPool.Count - 1];
             expPool.RemoveAt(expPool.Count - 1);
+            go.SetActive(true);
             go.transform.position = position;
         }
         else
