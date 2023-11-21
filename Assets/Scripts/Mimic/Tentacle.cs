@@ -112,6 +112,7 @@ namespace MimicSpace
             yield return new WaitForSeconds(lifeTime);
             //while (myMimic.deployedLegs < myMimic.minimumAnchoredParts)
             //    yield return null;
+            myMimic.RecycleTentacle(this.gameObject);
             growTarget = 0;
         }
 
@@ -121,6 +122,7 @@ namespace MimicSpace
             
             transform.localPosition = center.localPosition;
             
+            /*
             // The growTarget is set to 1 if the leg must grow, and 0 if it must retract
             if (growTarget == 1 && canDie)
                 growTarget = 0;
@@ -135,8 +137,8 @@ namespace MimicSpace
             }
             
             // progression defines the percentage of deployement (1 being fully deployed and 0 fully retracted)
-            progression = Mathf.Lerp(progression, growTarget, growCoef * Time.deltaTime);
-            //progression = animationCurve.Evaluate(growCoef * Time.deltaTime);
+            //progression = Mathf.Lerp(progression, growTarget, growCoef * Time.deltaTime);
+            progression = animationCurve.Evaluate(growCoef * Time.deltaTime);
             // we signal the leg deployement to the Mimic for the leg spawn logic
             if (!isDeployed && progression > 0.9f)
             {
@@ -166,7 +168,7 @@ namespace MimicSpace
                 }
 
             }
-            
+            */
             // We update the handle position defining the spline
             Sethandles();
 
