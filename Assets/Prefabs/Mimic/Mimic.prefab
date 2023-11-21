@@ -48,6 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   legPrefab: {fileID: 1682633662898237459, guid: aa4dcf1565c1f604fae09a94bb3055ae,
     type: 3}
+  tentaclePrefab: {fileID: 1682633662898237459, guid: 71769f0977296a04aa4003de8eb24d81,
+    type: 3}
+  center: {fileID: 0}
   numberOfLegs: 5
   partsPerLeg: 4
   legCount: 0
@@ -60,11 +63,15 @@ MonoBehaviour:
   newLegRadius: 3
   minLegDistance: 4.5
   maxLegDistance: 6.2999997
+  legSize: 0.4
   legResolution: 40
   minGrowCoef: 4.5
   maxGrowCoef: 6.5
   newLegCooldown: 0.3
-  velocity: {x: -0.19586274, y: 0, z: -0.36890507}
+  velocity: {x: 0.039591357, y: 0, z: -0.06480916}
+  tentacleCount: 0
+  deployedTentacles: 0
+  attackPoint: {fileID: 0}
 --- !u!114 &608258904
 MonoBehaviour:
   m_ObjectHideFlags: 0

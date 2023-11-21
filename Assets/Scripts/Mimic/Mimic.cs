@@ -8,6 +8,7 @@ namespace MimicSpace
     {
         [Header("Animation")]
         public GameObject legPrefab;
+        public GameObject tentaclePrefab;
 
         public Transform center;
 
@@ -36,6 +37,9 @@ namespace MimicSpace
         public float minLegDistance = 4.5f;
         public float maxLegDistance = 6.3f;
 
+        
+        public float legSize = 0.4f;
+        
         [Range(2, 50)]
         [Tooltip("Number of spline samples per legpart")]
         public int legResolution = 40;
@@ -51,18 +55,20 @@ namespace MimicSpace
         bool canCreateLeg = true;
 
         List<GameObject> availableLegPool = new List<GameObject>();
-
         
+        [Tooltip("This must be updates as the Mimic moves to assure great leg placement")]
+        public Vector3 velocity;
+        
+        [Header("Tentacle")]
+        List<GameObject> availableTentaclePool = new List<GameObject>();
+
+        bool canCreateTentacle = true;
         public int tentacleCount;
         public int deployedTentacles;
         
-        List<GameObject> availableTentaclePool = new List<GameObject>();
+        public int maxTentacles;
 
-        [Tooltip("This must be updates as the Mimin moves to assure great leg placement")]
-        public Vector3 velocity;
-
-
-        public float legSize = 0.4f;
+        public Transform attackPoint;
 
         void Start()
         {
@@ -98,56 +104,71 @@ namespace MimicSpace
             yield return new WaitForSeconds(newLegCooldown);
             canCreateLeg = true;
         }
+        IEnumerator NewTentacleCooldown()
+        {
+            canCreateTentacle = false;
+            yield return new WaitForSeconds(newLegCooldown);
+            canCreateTentacle = true;
+        }
 
         // Update is called once per frame
         void Update()
         {
-            if (!canCreateLeg)
-                return;
-
-            // New leg origin is placed in front of the mimic
-            legPlacerOrigin = transform.position + velocity.normalized * newLegRadius;
-
-            if (legCount <= maxLegs - partsPerLeg)
+            if (canCreateLeg)
             {
-                // Offset The leg origin by a random vector
-                Vector2 offset = Random.insideUnitCircle * newLegRadius;
-                Vector3 newLegPosition = legPlacerOrigin + new Vector3(offset.x, 0, offset.y);
-
-                // If the mimic is moving and the new leg position is behind it, mirror it to make
-                // it reach in front of the mimic.
-                if (velocity.magnitude > 1f)
+                // New leg origin is placed in front of the mimic
+                legPlacerOrigin = transform.position + velocity.normalized * newLegRadius;
+                
+                if (legCount <= maxLegs - partsPerLeg)
                 {
-                    float newLegAngle = Vector3.Angle(velocity, newLegPosition - transform.position);
+                    // Offset The leg origin by a random vector
+                    Vector2 offset = Random.insideUnitCircle * newLegRadius;
+                    Vector3 newLegPosition = legPlacerOrigin + new Vector3(offset.x, 0, offset.y);
 
-                    if (Mathf.Abs(newLegAngle) > 90)
+                    // If the mimic is moving and the new leg position is behind it, mirror it to make
+                    // it reach in front of the mimic.
+                    if (velocity.magnitude > 1f)
                     {
-                        newLegPosition = transform.position - (newLegPosition - transform.position);
+                        float newLegAngle = Vector3.Angle(velocity, newLegPosition - transform.position);
+
+                        if (Mathf.Abs(newLegAngle) > 90)
+                        {
+                            newLegPosition = transform.position - (newLegPosition - transform.position);
+                        }
+                    }
+
+                    if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(legPlacerOrigin.x, 0, legPlacerOrigin.z)) < minLegDistance)
+                        newLegPosition = ((newLegPosition - transform.position).normalized * minLegDistance) + transform.position;
+
+                    // if the angle is too big, adjust the new leg position towards the velocity vector
+                    if (Vector3.Angle(velocity, newLegPosition - transform.position) > 45)
+                        newLegPosition = transform.position + ((newLegPosition - transform.position) + velocity.normalized * (newLegPosition - transform.position).magnitude) / 2f;
+
+                    RaycastHit hit;
+                    Physics.Raycast(newLegPosition + Vector3.up * 10f, -Vector3.up, out hit);
+                    Vector3 myHit = hit.point;
+                    if (Physics.Linecast(transform.position, hit.point, out hit))
+                        myHit = hit.point;
+
+                    float lifeTime = Random.Range(minLegLifetime, maxLegLifetime);
+
+                    StartCoroutine("NewLegCooldown");
+                    for (int i = 0; i < partsPerLeg; i++)
+                    {
+                        RequestLeg(myHit, legResolution, maxLegDistance, Random.Range(minGrowCoef, maxGrowCoef), this, lifeTime, center);
+                        if (legCount >= maxLegs)
+                            return;
                     }
                 }
+            }
 
-                if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(legPlacerOrigin.x, 0, legPlacerOrigin.z)) < minLegDistance)
-                    newLegPosition = ((newLegPosition - transform.position).normalized * minLegDistance) + transform.position;
+            if (canCreateTentacle)
+            {
+                float lifeTime = 2f;
 
-                // if the angle is too big, adjust the new leg position towards the velocity vector
-                if (Vector3.Angle(velocity, newLegPosition - transform.position) > 45)
-                    newLegPosition = transform.position + ((newLegPosition - transform.position) + velocity.normalized * (newLegPosition - transform.position).magnitude) / 2f;
-
-                RaycastHit hit;
-                Physics.Raycast(newLegPosition + Vector3.up * 10f, -Vector3.up, out hit);
-                Vector3 myHit = hit.point;
-                if (Physics.Linecast(transform.position, hit.point, out hit))
-                    myHit = hit.point;
-
-                float lifeTime = Random.Range(minLegLifetime, maxLegLifetime);
-
-                StartCoroutine("NewLegCooldown");
-                for (int i = 0; i < partsPerLeg; i++)
-                {
-                    RequestLeg(myHit, legResolution, maxLegDistance, Random.Range(minGrowCoef, maxGrowCoef), this, lifeTime, center);
-                    if (legCount >= maxLegs)
-                        return;
-                }
+                StartCoroutine("NewTentacleCooldown");
+                if(tentacleCount < maxTentacles)
+                    RequestTentacle(attackPoint.position, legResolution, maxLegDistance, 1.0f, this, lifeTime, center);
             }
         }
 
@@ -174,6 +195,29 @@ namespace MimicSpace
             availableLegPool.Add(leg);
             leg.SetActive(false);
         }
-    }
+        
+        public void RecycleTentacle(GameObject tentacle)
+        {
+            availableTentaclePool.Add(tentacle);
+            tentacle.SetActive(false);
+        }
 
+        public void RequestTentacle(Vector3 attackPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime, Transform center)
+        {
+            GameObject newTentacle;
+            if (availableTentaclePool.Count > 0)
+            {
+                newTentacle = availableTentaclePool[availableTentaclePool.Count - 1];
+                availableTentaclePool.RemoveAt(availableTentaclePool.Count - 1);
+            }
+            else
+            {
+                newTentacle = Instantiate(tentaclePrefab, center.localPosition + transform.position,
+                    Quaternion.identity);
+            }
+            newTentacle.SetActive(true);
+            newTentacle.GetComponent<Tentacle>().Initialize(attackPosition, legResolution, maxLegDistance, growCoef, myMimic, lifeTime, center);
+            newTentacle.transform.SetParent(myMimic.transform);
+        }
+    }
 }

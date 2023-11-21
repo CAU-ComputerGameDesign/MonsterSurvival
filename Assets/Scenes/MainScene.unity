@@ -4496,7 +4496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &559349841
 Transform:
   m_ObjectHideFlags: 0
@@ -7944,12 +7944,22 @@ PrefabInstance:
     - target: {fileID: 8675915457954794083, guid: 28dcc02b0450a3f4fbb6c5fd57c026d4,
         type: 3}
       propertyPath: velocity.x
-      value: 0.43310764
+      value: 0.56598943
       objectReference: {fileID: 0}
     - target: {fileID: 8675915457954794083, guid: 28dcc02b0450a3f4fbb6c5fd57c026d4,
         type: 3}
       propertyPath: velocity.z
-      value: -0.22985046
+      value: 0.51598924
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675915457954794083, guid: 28dcc02b0450a3f4fbb6c5fd57c026d4,
+        type: 3}
+      propertyPath: attackPoint
+      value: 
+      objectReference: {fileID: 1385100678}
+    - target: {fileID: 8675915457954794083, guid: 28dcc02b0450a3f4fbb6c5fd57c026d4,
+        type: 3}
+      propertyPath: maxTentacles
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8675915458194695970, guid: 28dcc02b0450a3f4fbb6c5fd57c026d4,
         type: 3}
@@ -11671,6 +11681,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 87dc0b67e5fe70f40a31e17b0c0058b4, type: 3}
+--- !u!1 &1385100677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1385100678}
+  m_Layer: 0
+  m_Name: attackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1385100678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385100677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 76.995155, y: 21.05, z: 60.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1385883113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18083,7 +18124,7 @@ PrefabInstance:
     - target: {fileID: 4457629075425741998, guid: 1190a365fd56fcc4fb39154b65649a19,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6865234507355317720, guid: 1190a365fd56fcc4fb39154b65649a19,
         type: 3}
