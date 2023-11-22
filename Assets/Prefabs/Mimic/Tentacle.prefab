@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 6164918350687002688}
   - component: {fileID: 2512604949561864013}
   - component: {fileID: 5530222826595723056}
-  m_Layer: 0
+  - component: {fileID: 5469396155228609489}
+  m_Layer: 3
   m_Name: Tentacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,23 +102,23 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.48259553
       - serializedVersion: 3
-        time: 0.20628557
-        value: 0.29106066
-        inSlope: -0.2686744
-        outSlope: -0.2686744
+        time: 0.15350251
+        value: 0.80439055
+        inSlope: -0.5536962
+        outSlope: -0.5536962
         tangentMode: 0
         weightedMode: 0
         inWeight: 1
-        outWeight: 0.39044872
+        outWeight: 0.19596241
       - serializedVersion: 3
-        time: 0.92289686
-        value: 0.11092657
-        inSlope: -0.21509495
-        outSlope: -0.21509495
+        time: 0.79093206
+        value: 0.5909227
+        inSlope: -0.37510994
+        outSlope: -0.37510994
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.27013037
-        outWeight: 1
+        outWeight: 0.64932984
       - serializedVersion: 3
         time: 1
         value: 0
@@ -237,7 +238,8 @@ MonoBehaviour:
   growCoef: 3
   growTarget: 1
   progression: 0
-  minDuration: 1
+  canAttack: 1
+  isShrink: 0
   rotationSpeed: 180
   minRotSpeed: 15
   maxRotSpeed: 150
@@ -258,32 +260,56 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.29772013
-      value: 0.6585719
-      inSlope: 3.0775342
-      outSlope: 3.0775342
+      time: 0.02527093
+      value: 0.58047533
+      inSlope: 12.405006
+      outSlope: 12.405006
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.060596984
+      outWeight: 0.050960008
     - serializedVersion: 3
-      time: 0.9243194
-      value: 1.1031086
-      inSlope: -1.7856636
-      outSlope: -1.7856636
+      time: 0.19925582
+      value: 1.2762961
+      inSlope: -0.034862176
+      outSlope: -0.034862176
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.3912834
+      outWeight: 0.15106964
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.6767617
+      value: 0.82806313
+      inSlope: -2.4036405
+      outSlope: -2.4036405
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.117141575
+    - serializedVersion: 3
+      time: 0.997498
+      value: 0.00056529045
+      inSlope: 0.10023253
+      outSlope: 0.10023253
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20288979
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  hitRate: 0.5
+  collider: {fileID: 0}
+--- !u!135 &5469396155228609489
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682633662898237459}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.25
+  m_Center: {x: 0, y: 0, z: 0}

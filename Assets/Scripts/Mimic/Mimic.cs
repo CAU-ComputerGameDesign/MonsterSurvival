@@ -37,6 +37,7 @@ namespace MimicSpace
         public float minLegDistance = 4.5f;
         public float maxLegDistance = 6.3f;
 
+        public LayerMask layermask;
         
         public float legSize = 0.4f;
         
@@ -95,7 +96,6 @@ namespace MimicSpace
             velocity = new Vector3(randV.x, 0, randV.y);
             minimumAnchoredParts = minimumAnchoredLegs * partsPerLeg;
             maxLegDistance = newLegRadius * 2.1f;
-
         }
 
         IEnumerator NewLegCooldown()
@@ -145,9 +145,9 @@ namespace MimicSpace
                         newLegPosition = transform.position + ((newLegPosition - transform.position) + velocity.normalized * (newLegPosition - transform.position).magnitude) / 2f;
 
                     RaycastHit hit;
-                    Physics.Raycast(newLegPosition + Vector3.up * 10f, -Vector3.up, out hit);
+                    Physics.Raycast(newLegPosition + Vector3.up * 10f, -Vector3.up, out hit, layermask);
                     Vector3 myHit = hit.point;
-                    if (Physics.Linecast(transform.position, hit.point, out hit))
+                    if (Physics.Linecast(transform.position, hit.point, out hit, layermask))
                         myHit = hit.point;
 
                     float lifeTime = Random.Range(minLegLifetime, maxLegLifetime);
@@ -170,6 +170,28 @@ namespace MimicSpace
                 if(tentacleCount < maxTentacles)
                     RequestTentacle(attackPoint.position, legResolution, maxLegDistance, 1.0f, this, lifeTime, center);
             }
+        }
+
+        public Tentacle GetTentacle()
+        {
+            GameObject newTentacle;
+            if (availableTentaclePool.Count > 0)
+            {
+                newTentacle = availableTentaclePool[availableTentaclePool.Count - 1];
+                availableTentaclePool.RemoveAt(availableTentaclePool.Count - 1);
+            }
+            else
+            {
+                newTentacle = Instantiate(tentaclePrefab, center.localPosition + transform.position,
+                    Quaternion.identity);
+            }
+            
+            newTentacle.SetActive(true);
+            float lifeTime = 2f;
+            Tentacle t = newTentacle.GetComponent<Tentacle>();
+            t.Initialize(attackPoint.position, legResolution, maxLegDistance, 1.0f, this, lifeTime, center);
+            newTentacle.transform.SetParent(transform);
+            return t;
         }
 
         // object pooling to limit leg instantiation

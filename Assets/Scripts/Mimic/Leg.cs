@@ -28,7 +28,7 @@ namespace MimicSpace
 
         public float growCoef;
         public float growTarget = 1;
-
+        public LayerMask layerMask;
         [Range(0, 1f)]
         public float progression;
 
@@ -77,7 +77,7 @@ namespace MimicSpace
             // is a bit offset for every leg part
             Vector2 footOffset = Random.insideUnitCircle.normalized * finalFootDistance;
             RaycastHit hit;
-            Physics.Raycast(footPosition + Vector3.up * 5f + new Vector3(footOffset.x, 0, footOffset.y), -Vector3.up, out hit);
+            Physics.Raycast(footPosition + Vector3.up * 5f + new Vector3(footOffset.x, 0, footOffset.y), -Vector3.up, out hit, layerMask);
             handles[7] = hit.point;
 
             legHeight = Random.Range(legMinHeight, legMaxHeight);
@@ -125,7 +125,7 @@ namespace MimicSpace
             {
                 // Check is the body is in line of sight from the foot position, and initiates the retractation if it isn't
                 RaycastHit hit;
-                if (Physics.Linecast(footPosition, transform.position, out hit))
+                if (Physics.Linecast(footPosition, transform.position, out hit, layerMask))
                 {
                     growTarget = 0;
                 }

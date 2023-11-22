@@ -63,14 +63,18 @@ MonoBehaviour:
   newLegRadius: 3
   minLegDistance: 4.5
   maxLegDistance: 6.2999997
+  layermask:
+    serializedVersion: 2
+    m_Bits: 55
   legSize: 0.4
   legResolution: 40
   minGrowCoef: 4.5
   maxGrowCoef: 6.5
   newLegCooldown: 0.3
-  velocity: {x: 0.039591357, y: 0, z: -0.06480916}
+  velocity: {x: 0.8683329, y: 0, z: -0.35171536}
   tentacleCount: 0
   deployedTentacles: 0
+  maxTentacles: 0
   attackPoint: {fileID: 0}
 --- !u!114 &608258904
 MonoBehaviour:

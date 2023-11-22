@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using MimicSpace;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class AutoShooter : MonoBehaviour
 {
+    
     public float scanRange;
     public LayerMask targetLayer;
     public Collider[] targets;
@@ -27,11 +30,12 @@ public class AutoShooter : MonoBehaviour
         yield return new WaitForSeconds(shootRate);
         canShoot = true;
     }
+    
     // Update is called once per frame
     void Update()
     {
         GetNearest();
-        if (canShoot)
+        if (canShoot && weapon.CanAttack())
         {
             StartCoroutine("shootCooldown");
             if (weapon.HasTarget() == true)

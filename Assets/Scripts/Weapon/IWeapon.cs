@@ -5,6 +5,7 @@ using UnityEngine;
 
 public interface IWeapon
 {
+    public bool CanAttack();
     public bool HasTarget();
     public void Attack(Vector3 targetPosition);
     public void Attack();

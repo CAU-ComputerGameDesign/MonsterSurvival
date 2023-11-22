@@ -236,6 +236,9 @@ MonoBehaviour:
   finalFootDistance: 0.35
   growCoef: 3
   growTarget: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 55
   progression: 0
   minDuration: 0.5
   rotationSpeed: 180

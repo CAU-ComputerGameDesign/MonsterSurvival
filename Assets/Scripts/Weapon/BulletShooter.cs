@@ -5,6 +5,11 @@ using UnityEngine;
 public class BulletShooter : MonoBehaviour, IWeapon
 {
     public int bulletID = 0;
+
+    public bool CanAttack()
+    {
+        return true;
+    }
     public bool HasTarget()
     {
         return true;

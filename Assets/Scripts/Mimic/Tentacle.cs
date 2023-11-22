@@ -32,9 +32,8 @@ namespace MimicSpace
         [Range(0, 1f)]
         public float progression;
 
-        bool isRemoved = false;
-        bool canDie = false;
-        public float minDuration;
+        public bool canAttack = true;
+        public bool isShrink = false;
 
         [Header("Rotation")]
         public float rotationSpeed;
@@ -51,8 +50,10 @@ namespace MimicSpace
         public Color myColor;
 
         public AnimationCurve animationCurve;
-        
+        private float deltaTime;
+        public float hitRate = 0.5f;
 
+        public SphereCollider collider;
         public void Initialize(Vector3 attackPoint, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime , Transform center)
         {
             this.attackPoint = attackPoint;
@@ -62,6 +63,7 @@ namespace MimicSpace
             this.myMimic = myMimic;
 
             this.legLine = GetComponent<LineRenderer>();
+            collider = GetComponent<SphereCollider>();
             legLine.material.color = myColor;
             handles = new Vector3[handlesCount];
 
@@ -77,10 +79,8 @@ namespace MimicSpace
 
             // each leg part have the same foot position, butto make it look like "toes" the last handle (handles[7])
             // is a bit offset for every leg part
-            Vector2 footOffset = Random.insideUnitCircle.normalized * finalFootDistance;
-            RaycastHit hit;
-            Physics.Raycast(attackPoint + Vector3.up * 5f + new Vector3(footOffset.x, 0, footOffset.y), -Vector3.up, out hit);
-            handles[7] = hit.point;
+            handles[7] = this.attackPoint;
+            handles[7].y += 0.5f;
 
             legHeight = Random.Range(legMinHeight, legMaxHeight);
             rotationSpeed = Random.Range(minRotSpeed, maxRotSpeed); // * (Random.Range(0f, 1f) > 0.5f ? -1 : 1);
@@ -93,82 +93,46 @@ namespace MimicSpace
 
             this.center = center;
 
-            isRemoved = false;
-            canDie = false;
             isDeployed = false;
-            StartCoroutine("WaitToDie");
-            StartCoroutine("WaitAndDie", lifeTime);
             Sethandles();
         }
 
-        IEnumerator WaitToDie()
-        {
-            yield return new WaitForSeconds(minDuration);
-            canDie = true;
-        }
 
-        IEnumerator WaitAndDie(float lifeTime)
+        public void Attack(Vector3 target)
         {
-            yield return new WaitForSeconds(lifeTime);
-            //while (myMimic.deployedLegs < myMimic.minimumAnchoredParts)
-            //    yield return null;
-            myMimic.RecycleTentacle(this.gameObject);
-            growTarget = 0;
+            collider.enabled = true;
+            canAttack = false;
+            isShrink = false;
+            attackPoint = target;
+            handles[7] = attackPoint;
+            handles[7].y += 0.5f;
+            Sethandles();
+            deltaTime = 0;
         }
 
         private void Update()
         {
+            deltaTime += Time.deltaTime;
             legLine.widthMultiplier = myMimic.legSize;
             
             transform.localPosition = center.localPosition;
             
-            /*
-            // The growTarget is set to 1 if the leg must grow, and 0 if it must retract
-            if (growTarget == 1 && canDie)
-                growTarget = 0;
-            else if (growTarget == 1)
-            {
-                // Check is the body is in line of sight from the foot position, and initiates the retractation if it isn't
-                RaycastHit hit;
-                if (Physics.Linecast(attackPoint, transform.position, out hit))
-                {
-                    growTarget = 0;
-                }
-            }
-            
-            // progression defines the percentage of deployement (1 being fully deployed and 0 fully retracted)
-            //progression = Mathf.Lerp(progression, growTarget, growCoef * Time.deltaTime);
-            progression = animationCurve.Evaluate(growCoef * Time.deltaTime);
-            // we signal the leg deployement to the Mimic for the leg spawn logic
-            if (!isDeployed && progression > 0.9f)
-            {
-                //myMimic.deployedLegs++;
-                isDeployed = true;
-                growTarget = 0;
-            }
-            else if (isDeployed && progression < 0.9f)
-            {
-                //myMimic.deployedLegs--;
-                isDeployed = false;
-            }
-            if (progression < 0.5f && growTarget == 0)
-            {
-                if (!isRemoved)
-                {
-                    GetComponentInParent<Mimic>().tentacleCount--;
-                    isRemoved = true;
-                }
+            progression = animationCurve.Evaluate(deltaTime / hitRate);
 
-                if (progression < 0.05f)
-                {
-                    //StopAllCoroutines();
-                    legLine.positionCount = 0;
-                    myMimic.RecycleTentacle(this.gameObject);
-                    return;
-                }
-
+            if (progression >= 0.8f)
+            {
+                isShrink = true;
             }
-            */
+
+            if (progression >= 1.2f)
+            {
+                collider.enabled = false;
+            }
+
+            if (progression < 0.05f)
+            {
+                if (isShrink) canAttack = true;
+            }
             // We update the handle position defining the spline
             Sethandles();
 
@@ -232,6 +196,8 @@ namespace MimicSpace
             for (float _t = 0; _t <= t; _t += segmentLength)
                 segmentPos.Add(GetPointOnCurve((Vector3[])curveHandles.Clone(), _t));
             segmentPos.Add(GetPointOnCurve(curveHandles, t));
+
+            collider.center = transform.InverseTransformPoint(segmentPos[segmentPos.Count - 1]);
             return segmentPos.ToArray();
         }
 
@@ -246,6 +212,18 @@ namespace MimicSpace
                 currentPoints--;
             }
             return curveHandles[0];
+        }
+        
+        
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Monster"))
+            {
+                AnimalsController controller = other.GetComponent<AnimalsController>();
+                controller.Hit();
+            }
+            else if (!other.CompareTag("Player")) ;
         }
     }
 }
