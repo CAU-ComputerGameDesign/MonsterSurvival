@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TentacleShooter : MonoBehaviour, IWeapon
 {
-    public int bulletID = 1;
+    public int bulletID = 2;
 
     private Mimic mimic;
     private Tentacle tentacle;

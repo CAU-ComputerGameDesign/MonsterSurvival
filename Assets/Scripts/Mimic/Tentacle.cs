@@ -53,6 +53,8 @@ namespace MimicSpace
         private float deltaTime;
         public float hitRate = 0.5f;
 
+        public float damage = 1.5f;
+
         public SphereCollider collider;
         public void Initialize(Vector3 attackPoint, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime , Transform center)
         {
@@ -221,7 +223,7 @@ namespace MimicSpace
             if (other.CompareTag("Monster"))
             {
                 AnimalsController controller = other.GetComponent<AnimalsController>();
-                controller.Hit();
+                controller.Hit(damage);
             }
             else if (!other.CompareTag("Player")) ;
         }

@@ -20,6 +20,6 @@ public class UISetter : MonoBehaviour
         int sec = Mathf.FloorToInt(remainTime % 60);
 
         time.text = string.Format("{0:D2}:{1:D2}", min, sec);
-        level.text = string.Format("Lv : {0:D2}", gm.level);
+        level.text = string.Format("Lv : {0:D1}", gm.level);
     }
 }

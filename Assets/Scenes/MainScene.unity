@@ -5322,7 +5322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab712340d2d5a449ab8737a63fb9733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: {fileID: 11400000, guid: f6833f01c65adb94e8ce0582a3384d34, type: 2}
+  ability: {fileID: 11400000, guid: 4eae882e7681f54408c2cc3e8a8a58b7, type: 2}
   icon: {fileID: 485965523}
   abilityName: {fileID: 339114134}
   abilityDesc: {fileID: 1274349324}
@@ -8222,7 +8222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab712340d2d5a449ab8737a63fb9733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: {fileID: 11400000, guid: f6833f01c65adb94e8ce0582a3384d34, type: 2}
+  ability: {fileID: 11400000, guid: 64670100daacb9b468a9713c52714cc9, type: 2}
   icon: {fileID: 978106892}
   abilityName: {fileID: 103949701}
   abilityDesc: {fileID: 1350039651}
@@ -19972,6 +19972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 304560694247933742, guid: 016bf0fa4f689574c9140b0516d84803, type: 3}
+  - {fileID: 4770797690261150972, guid: 26e1fdbddf5df5b499d87d4072797924, type: 3}
 --- !u!4 &1984750481
 Transform:
   m_ObjectHideFlags: 0
@@ -20737,6 +20738,7 @@ GameObject:
   - component: {fileID: 8675915457949176734}
   - component: {fileID: 8675915457949176733}
   - component: {fileID: 8675915457949176736}
+  - component: {fileID: 8675915457949176738}
   - component: {fileID: 8675915457949176737}
   m_Layer: 3
   m_Name: Center
@@ -20842,6 +20844,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletID: 1
+--- !u!114 &8675915457949176738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675915457949176730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8aeac7272e66b489635f44e2215a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletID: 1
 --- !u!1 &8675915458208415449
 GameObject:
   m_ObjectHideFlags: 0
@@ -20897,7 +20912,7 @@ MonoBehaviour:
   minGrowCoef: 4.5
   maxGrowCoef: 6.5
   newLegCooldown: 0.3
-  velocity: {x: 0.033563744, y: 0, z: 0.54717517}
+  velocity: {x: 0.24263702, y: 0, z: 0.5978556}
   tentacleCount: 0
   deployedTentacles: 0
   maxTentacles: 1

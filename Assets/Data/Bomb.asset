@@ -10,19 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfdb5bd2696089744b49529267c2d734, type: 3}
-  m_Name: BulletShooter
+  m_Name: Bomb
   m_EditorClassIdentifier: 
-  abilityName: What? It's gross..
-  abilityDescription: Fire something suspicious. Every time Mimic evolves, it changes.
-  abilityID: 0
-  abilityIcon: {fileID: 21300000, guid: 421c5e825c0b1904d8cb7ef2a0d2e86b, type: 3}
-  baseDamage: 1
-  baseCount: 1
-  damages:
-  - 0.5
-  - 1
-  - 2
-  - 4
-  - 4
-  counts: 0100000001000000010000000100000002000000
+  abilityName: Boom!
+  abilityDescription: Throw a bomb that kills multiple  enemies at once. No one can
+    match  the bomb. You too.
+  abilityID: 2
+  abilityIcon: {fileID: 21300000, guid: c0cc5c49a7d81204292dbc72f7469778, type: 3}
+  baseDamage: 0
+  baseCount: 0
+  damages: []
+  counts: 
   projectile: {fileID: 0}

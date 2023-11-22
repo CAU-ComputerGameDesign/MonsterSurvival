@@ -106,10 +106,10 @@ public class AnimalsController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         canMove = true;
     }
-    public void Hit()
+    public void Hit(float damage)
     {
         if (isDead) return;
-        hp--;
+        hp -= damage;
         if (hp <= 0)
         {
             isDead = true;

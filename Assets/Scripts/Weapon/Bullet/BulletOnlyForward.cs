@@ -14,6 +14,7 @@ public class BulletOnlyForward : MonoBehaviour, IBullet
     public float speed;
     public float duration = 4f;
 
+    public float damage = 1f;
 
     public void SetTarget(Vector3 target)
     {
@@ -45,7 +46,7 @@ public class BulletOnlyForward : MonoBehaviour, IBullet
             AnimalsController controller = other.GetComponent<AnimalsController>();
             if(!controller.isDead)
                 gameObject.SetActive(false);
-            controller.Hit();
+            controller.Hit(damage);
         }
         else if(!other.CompareTag("Player"))
             gameObject.SetActive(false);
