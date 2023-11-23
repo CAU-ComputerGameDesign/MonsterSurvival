@@ -6,7 +6,10 @@ public class BombShooter : MonoBehaviour, IWeapon
 {
     public int bulletID = 1;
 
+    [SerializeField]
     private float reachTime = 1f;
+    [SerializeField]
+    private float predictAmount = 2f;
 
     public bool CanAttack()
     {
@@ -27,6 +30,9 @@ public class BombShooter : MonoBehaviour, IWeapon
 
         Vector3 deltaXZ = new Vector3(targetPosition.x - currentPosition.x, 0,
             targetPosition.z - currentPosition.z);
+
+        deltaXZ -= new Vector3(deltaXZ.normalized.x, 0, deltaXZ.normalized.z) * predictAmount;
+        
         float deltaY = targetPosition.y - currentPosition.y;
         float Vy = deltaY / reachTime - gravity * reachTime / 2f;
 

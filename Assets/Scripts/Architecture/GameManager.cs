@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     public List<GameObject> expPool = new List<GameObject>();
     public GameObject expPrefab;
 
+    
+    public bool isGameStarted = false;
+
     private void Update()
     {
         if (playerExp >= nextExp)
@@ -85,5 +88,10 @@ public class GameManager : MonoBehaviour
     {
         expPool.Add(go);
         go.SetActive(false);
+    }
+
+    public void GameStart()
+    {
+        isGameStarted = true;
     }
 }

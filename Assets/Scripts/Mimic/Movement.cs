@@ -26,6 +26,7 @@ namespace MimicSpace
 
         void Update()
         {
+            if (!GameManager.Instance.isGameStarted) return;
             velocity = Vector3.Lerp(velocity, new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * speed, velocityLerpCoef * Time.deltaTime);
 
             // Assigning velocity to the mimic to assure great leg placement

@@ -15,8 +15,10 @@ public class Ability : ScriptableObject
     [Header("Level Data")] 
     public float baseDamage;
     public int baseCount;
+    public float baseFireRate;
     public float[] damages;
     public int[] counts;
+    public float[] fireRates;
 
     [Header("Projectile(Optional)")] 
     public GameObject projectile;

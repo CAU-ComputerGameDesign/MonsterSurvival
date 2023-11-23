@@ -13,19 +13,22 @@ public class MonsterSpawner : MonoBehaviour
 
     void Update()
     {
-        transform.position = GameManager.Instance.Player.transform.position;
-        
-        
-        timer += Time.deltaTime;
-
-        if (timer >= 1f)
+        if (GameManager.Instance.isGameStarted)
         {
-            Vector3 point = spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position;
-            RaycastHit hit;
-            if (Physics.Raycast(point, -Vector3.up, out hit))
-                point = new Vector3(point.x, hit.point.y, point.z);
-            GameObject monster = MonsterPool.Instance.Get(Random.Range(0, 8), point);
-            timer = 0f;
+            transform.position = GameManager.Instance.Player.transform.position;
+        
+        
+            timer += Time.deltaTime;
+
+            if (timer >= 1f)
+            {
+                Vector3 point = spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position;
+                RaycastHit hit;
+                if (Physics.Raycast(point, -Vector3.up, out hit))
+                    point = new Vector3(point.x, hit.point.y, point.z);
+                GameObject monster = MonsterPool.Instance.Get(Random.Range(0, 8), point);
+                timer = 0f;
+            }
         }
     }
 }
