@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8675915457954794082}
   - component: {fileID: 8675915457954794083}
   - component: {fileID: 608258904}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mimic
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
   minGrowCoef: 4.5
   maxGrowCoef: 6.5
   newLegCooldown: 0.3
-  velocity: {x: 0.8683329, y: 0, z: -0.35171536}
+  velocity: {x: -0.3995145, y: 0, z: -0.53272605}
   tentacleCount: 0
   deployedTentacles: 0
   maxTentacles: 0
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 8675915458194695970}
   - component: {fileID: 8675915458194695975}
   - component: {fileID: 8675915458194695972}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2512604949561864013}
   - component: {fileID: 2336278065694270157}
   - component: {fileID: 8756831054016911778}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LegMesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,6 +237,9 @@ MonoBehaviour:
   finalFootDistance: 0.6
   growCoef: 3
   growTarget: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   progression: 0
   minDuration: 0.5
   rotationSpeed: 180

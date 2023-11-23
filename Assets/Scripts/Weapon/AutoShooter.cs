@@ -17,7 +17,7 @@ public class AutoShooter : MonoBehaviour
 
     private bool canShoot = true;
     
-    private IWeapon weapon;
+    public IWeapon weapon;
 
     public void Start()
     {
@@ -35,21 +35,24 @@ public class AutoShooter : MonoBehaviour
     void Update()
     {
         GetNearest();
-        if (canShoot && weapon.CanAttack())
+        if (weapon != null)
         {
-            StartCoroutine("shootCooldown");
-            if (weapon.HasTarget() == true)
+            if (canShoot && weapon.CanAttack())
             {
-                if (target != null)
+                StartCoroutine("shootCooldown");
+                if (weapon.HasTarget() == true)
                 {
-                    weapon.Attack(target.position);
+                    if (target != null)
+                    {
+                        weapon.Attack(target.position);
+                    }
                 }
-            }
-            else
-            {
-                weapon.Attack();
-            }
+                else
+                {
+                    weapon.Attack();
+                }
             
+            }
         }
     }
 

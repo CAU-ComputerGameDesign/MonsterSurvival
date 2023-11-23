@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5469396155228609489}
   m_Layer: 3
   m_Name: Tentacle
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,6 +299,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   hitRate: 0.5
+  damage: 1.5
   collider: {fileID: 0}
 --- !u!135 &5469396155228609489
 SphereCollider:

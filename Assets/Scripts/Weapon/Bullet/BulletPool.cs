@@ -45,4 +45,11 @@ public class BulletPool : MonoBehaviour
         bullet.GetComponent<IBullet>().SetTarget(target);
         return bullet;
     }
+    
+    
+    public void RecycleBullet(int index, GameObject go)
+    {
+        bulletPools[index].Add(go);
+        go.SetActive(false);
+    }
 }

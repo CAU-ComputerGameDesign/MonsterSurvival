@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [Header("Player Settings")]
     public GameObject Player;
 
+    public AutoShooter AutoShooter;
+
     public float expRange;
     [Header("Game")] 
     public int level = 1;

@@ -28,11 +28,6 @@ public class BulletOnlyForward : MonoBehaviour, IBullet
         StartCoroutine("BulletDuration");
     }
 
-    void OnDisable()
-    {
-        BulletPool.Instance.bulletPools[bulletID].Add(gameObject);
-    }
-
     IEnumerator BulletDuration()
     {
         yield return new WaitForSeconds(duration);
@@ -45,10 +40,10 @@ public class BulletOnlyForward : MonoBehaviour, IBullet
         {
             AnimalsController controller = other.GetComponent<AnimalsController>();
             if(!controller.isDead)
-                gameObject.SetActive(false);
+                BulletPool.Instance.RecycleBullet(bulletID, gameObject);
             controller.Hit(damage);
         }
         else if(!other.CompareTag("Player"))
-            gameObject.SetActive(false);
+            BulletPool.Instance.RecycleBullet(bulletID, gameObject);
     }
 }
