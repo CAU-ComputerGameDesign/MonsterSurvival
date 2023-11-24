@@ -17,8 +17,22 @@ MonoBehaviour:
     match  the bomb. You too.
   abilityID: 2
   abilityIcon: {fileID: 21300000, guid: c0cc5c49a7d81204292dbc72f7469778, type: 3}
-  baseDamage: 0
-  baseCount: 0
-  damages: []
-  counts: 
+  baseDamage: 5
+  baseCount: 1
+  baseFireRate: 3
+  damages:
+  - 0
+  - 5
+  - 7
+  - 9
+  - 12
+  - 12
+  counts: 000000000100000001000000010000000100000002000000
+  fireRates:
+  - 0
+  - 3
+  - 3
+  - 3
+  - 3
+  - 3
   projectile: {fileID: 0}

@@ -9,4 +9,5 @@ public interface IWeapon
     public bool HasTarget();
     public void Attack(Vector3 targetPosition);
     public void Attack();
+    public void WeaponLevelUp();
 }

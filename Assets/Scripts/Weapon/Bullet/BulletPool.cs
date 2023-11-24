@@ -25,25 +25,30 @@ public class BulletPool : MonoBehaviour
         }
     }
 
-    public GameObject GetBullet(int index, Vector3 position, Quaternion rotation, Vector3 target)
+    public GameObject GetBullet(int index, Vector3 position, Quaternion rotation, Vector3 target, float damage)
     {
-        GameObject bullet;
+        GameObject go;
         if (bulletPools[index].Count > 0)
         {
-            bullet = bulletPools[index][bulletPools[index].Count - 1];
+            go = bulletPools[index][bulletPools[index].Count - 1];
             bulletPools[index].RemoveAt(bulletPools[index].Count - 1);
             
-            bullet.SetActive(true);
-            bullet.transform.position = position;
-            bullet.transform.rotation = rotation;
+            go.SetActive(true);
+            go.transform.position = position;
+            go.transform.rotation = rotation;
         }
         else
         {
-            bullet = Instantiate(prefabs[index], position, rotation);
-            bullet.SetActive(true);
+            go = Instantiate(prefabs[index], position, rotation);
+            go.SetActive(true);
         }
-        bullet.GetComponent<IBullet>().SetTarget(target);
-        return bullet;
+
+        IBullet bullet = go.GetComponent<IBullet>();
+        bullet.SetTarget(target);
+        bullet.SetDamage(damage);
+        
+        
+        return go;
     }
     
     

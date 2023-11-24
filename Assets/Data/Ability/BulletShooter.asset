@@ -18,11 +18,20 @@ MonoBehaviour:
   abilityIcon: {fileID: 21300000, guid: 421c5e825c0b1904d8cb7ef2a0d2e86b, type: 3}
   baseDamage: 1
   baseCount: 1
+  baseFireRate: 1
   damages:
+  - 0
   - 0.5
   - 1
   - 2
   - 4
   - 4
-  counts: 0100000001000000010000000100000002000000
+  counts: 000000000100000001000000010000000100000002000000
+  fireRates:
+  - 0
+  - 1
+  - 0.8
+  - 0.8
+  - 0.5
+  - 0.5
   projectile: {fileID: 0}

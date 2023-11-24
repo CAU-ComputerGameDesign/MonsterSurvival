@@ -69,7 +69,6 @@ namespace MimicSpace
         
         public int maxTentacles;
 
-        public Transform attackPoint;
 
         void Start()
         {
@@ -168,7 +167,7 @@ namespace MimicSpace
 
                 StartCoroutine("NewTentacleCooldown");
                 if(tentacleCount < maxTentacles)
-                    RequestTentacle(attackPoint.position, legResolution, maxLegDistance, 1.0f, this, lifeTime, center);
+                    RequestTentacle(transform.position, legResolution, maxLegDistance, 1.0f, this, lifeTime, center);
             }
         }
 
@@ -189,7 +188,7 @@ namespace MimicSpace
             newTentacle.SetActive(true);
             float lifeTime = 2f;
             Tentacle t = newTentacle.GetComponent<Tentacle>();
-            t.Initialize(attackPoint.position, legResolution, maxLegDistance, 1.0f, this, lifeTime, center);
+            t.Initialize(transform.position, legResolution, maxLegDistance, 1.0f, this, lifeTime, center);
             newTentacle.transform.SetParent(transform);
             return t;
         }

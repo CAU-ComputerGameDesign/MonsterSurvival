@@ -8,17 +8,8 @@ public class ChooseAbility : MonoBehaviour
     
     public void SelectAbility(int bulletID)
     {
-        AutoShooter autoShooter = GameManager.Instance.Player.GetComponent<AutoShooter>();
-        for (int i = 0; i < weaponList.Count; i++)
-        {
-            if (i != bulletID)
-                weaponList[i].SetActive(false);
-            else
-                weaponList[i].SetActive(true);
-            
-        }
-
-        autoShooter.weapon = weaponList[bulletID].GetComponent<IWeapon>();
-        GameManager.Instance.GameStart();
+        weaponList[bulletID].GetComponent<IWeapon>().WeaponLevelUp();
+        if(!GameManager.Instance.isGameStarted)
+            GameManager.Instance.GameStart();
     }
 }

@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour
     [Header("Player Settings")]
     public GameObject Player;
 
-    public AutoShooter AutoShooter;
-
     public float expRange;
     [Header("Game")] 
     public int level = 1;
@@ -25,6 +23,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> expPool = new List<GameObject>();
     public GameObject expPrefab;
 
+    public GameObject AbilitySetter;
     
     public bool isGameStarted = false;
 
@@ -34,17 +33,21 @@ public class GameManager : MonoBehaviour
         {
             levelUP();
         }
-        
-        if (gameTime < maxTime)
+
+        if (isGameStarted)
         {
-            gameTime += Time.deltaTime;
+            if (gameTime < maxTime)
+            {
+                gameTime += Time.deltaTime;
+            }
+            else
+                gameTime = maxTime;
         }
-        else
-            gameTime = maxTime;
     }
 
     public void levelUP()
     {
+        AbilitySetter.SetActive(true);
         level++;
         playerExp = 0;
         nextExp = nextExp * 1.7f;

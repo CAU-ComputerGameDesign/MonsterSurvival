@@ -13,12 +13,16 @@ public class Bomb : MonoBehaviour, IBullet
     [SerializeField]
     private LayerMask layerMask;
 
-    [SerializeField] 
-    private float damage = 5f;
+    public float damage = 5f;
 
     private Collider collider;
     private CinemachineImpulseSource impulseSource;
 
+    
+    public void SetDamage(float damage)
+    {
+        this.damage = damage;
+    }
     private void Start()
     {
         collider = GetComponent<Collider>();
@@ -32,11 +36,7 @@ public class Bomb : MonoBehaviour, IBullet
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Monster"))
-        {
-            Explode();
-        }
-        else if(!other.CompareTag("Player"))
+        if(!other.CompareTag("Player"))
             Explode();
     }
 

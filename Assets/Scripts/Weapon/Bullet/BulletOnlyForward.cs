@@ -34,6 +34,10 @@ public class BulletOnlyForward : MonoBehaviour, IBullet
         gameObject.SetActive(false);
     }
 
+    public void SetDamage(float damage)
+    {
+        this.damage = damage;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Monster"))

@@ -54,7 +54,7 @@ namespace MimicSpace
         public float hitRate = 0.5f;
 
         public float damage = 1.5f;
-
+        
         public SphereCollider collider;
         public void Initialize(Vector3 attackPoint, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime , Transform center)
         {
@@ -100,8 +100,9 @@ namespace MimicSpace
         }
 
 
-        public void Attack(Vector3 target)
+        public void Attack(Vector3 target, float damage)
         {
+            this.damage = damage;
             collider.enabled = true;
             canAttack = false;
             isShrink = false;
