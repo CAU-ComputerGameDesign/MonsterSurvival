@@ -9536,7 +9536,6 @@ MonoBehaviour:
   reachTime: 1
   predictAmount: 2
   weaponLevel: 0
-  damage: 5
   damageOnLevel: []
   shootRateOnLevel: []
   weaponCountOnLevel: 
@@ -14369,9 +14368,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletID: 2
   weaponLevel: 0
-  damage: 1.5
   targetDetecter: {fileID: 8675915457949176736}
   canShoot: 1
+  range: 3
   damageOnLevel: []
   shootRateOnLevel: []
   weaponCountOnLevel: 
@@ -16748,7 +16747,8 @@ MonoBehaviour:
   expRange: 10
   level: 1
   playerExp: 0
-  nextExp: 3
+  nextExp: 5
+  nextExpRatio: 1.1
   gameTime: 0
   maxTime: 1200
   expPool: []
@@ -20231,7 +20231,6 @@ MonoBehaviour:
   bulletID: 0
   targetDetecter: {fileID: 8675915457949176736}
   weaponLevel: 0
-  damage: 1
   canShoot: 1
   damageOnLevel: []
   shootRateOnLevel: []
@@ -20929,7 +20928,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: da3d6e35e0f4095469797fd880a38ef4, type: 2}
+  - {fileID: 2100000, guid: c8058bb945e76824f918280ee8eb1ac7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20977,6 +20976,7 @@ MonoBehaviour:
     m_Bits: 64
   targets: []
   target: {fileID: 0}
+  hasTarget: 0
 --- !u!1 &8675915458208415449
 GameObject:
   m_ObjectHideFlags: 0
@@ -21032,7 +21032,7 @@ MonoBehaviour:
   minGrowCoef: 4.5
   maxGrowCoef: 6.5
   newLegCooldown: 0.3
-  velocity: {x: -0.71719193, y: 0, z: -0.5317948}
+  velocity: {x: 0.10229693, y: 0, z: 0.92521375}
   tentacleCount: 0
   deployedTentacles: 0
   maxTentacles: 1

@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public float playerExp = 0f;
     public float nextExp = 3f;
 
+    public float nextExpRatio = 1.1f;
+
     public float gameTime = 0f;
     public float maxTime = 20 * 60f;
 
@@ -50,7 +52,7 @@ public class GameManager : MonoBehaviour
         AbilitySetter.SetActive(true);
         level++;
         playerExp = 0;
-        nextExp = nextExp * 1.7f;
+        nextExp = nextExp * nextExpRatio;
     }
 
     void Awake()

@@ -10,7 +10,6 @@ public class BulletShooter : MonoBehaviour, IWeapon
     public TargetDetecter targetDetecter;
 
     public int weaponLevel = 0;
-    public float damage = 1f;
 
     public bool canShoot = true;
 
@@ -26,15 +25,6 @@ public class BulletShooter : MonoBehaviour, IWeapon
         shootRateOnLevel = ability.fireRates;
         weaponCountOnLevel = ability.counts;
     }
-    
-    public bool CanAttack()
-    {
-        return true;
-    }
-    public bool HasTarget()
-    {
-        return true;
-    }
 
     public void Update()
     {
@@ -42,14 +32,16 @@ public class BulletShooter : MonoBehaviour, IWeapon
         {
             targetDetecter.GetNearest();
             StartCoroutine("shootCooldown");
-            for (int i = 0; i < weaponCountOnLevel[weaponLevel]; i++)
+            for (int i = 0; i < weaponCountOnLevel[weaponLevel] && i < targetDetecter.targets.Length; i++)
             {
-                Attack(targetDetecter.targets[i].transform.position);
+                if (targetDetecter.hasTarget)
+                {
+                    Attack(targetDetecter.targets[i].transform.position);
+                }
             }
         }
     }
-
-
+    
     public void WeaponLevelUp()
     {
         weaponLevel++;
@@ -65,7 +57,7 @@ public class BulletShooter : MonoBehaviour, IWeapon
     {
         targetPosition.y += 0.2f;
         Quaternion rot = Quaternion.LookRotation(targetPosition - transform.position);
-        BulletPool.Instance.GetBullet(bulletID, transform.position, rot, targetPosition, damage);
+        BulletPool.Instance.GetBullet(bulletID, transform.position, rot, targetPosition, damageOnLevel[weaponLevel]);
     }
 
     public void Attack()

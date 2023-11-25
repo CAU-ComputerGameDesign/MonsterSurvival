@@ -11,11 +11,11 @@ public class TargetDetecter : MonoBehaviour
     
     public float scanRange;
     public LayerMask targetLayer;
-    public Collider[] targets;
+    public Collider[] targets = null;
     
     public Transform target;
 
-    private bool[] canShoot;
+    public bool hasTarget = false;
     
     public List<IWeapon> weapons = new List<IWeapon>();
     
@@ -27,6 +27,14 @@ public class TargetDetecter : MonoBehaviour
     public void GetNearest()
     {
         targets = Physics.OverlapSphere(transform.position, scanRange, targetLayer);
-        Array.Sort(targets, (Collider x, Collider y) => Vector3.Distance(transform.position,  x.transform.position).CompareTo(Vector3.Distance(transform.position,  y.transform.position)));
+        if (targets.Length > 0)
+        {
+            Array.Sort(targets, (Collider x, Collider y) => Vector3.Distance(transform.position,  x.transform.position).CompareTo(Vector3.Distance(transform.position,  y.transform.position)));
+            hasTarget = true;
+        }
+        else
+        {
+            hasTarget = false;
+        }
     }
 }

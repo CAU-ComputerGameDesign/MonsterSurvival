@@ -17,7 +17,6 @@ public class BombShooter : MonoBehaviour, IWeapon
     
     
     public int weaponLevel = 0;
-    public float damage = 5f;
 
     
     public float[] damageOnLevel;
@@ -53,9 +52,12 @@ public class BombShooter : MonoBehaviour, IWeapon
         {
             targetDetecter.GetNearest();
             StartCoroutine("shootCooldown");
-            for (int i = 0; i < weaponCountOnLevel[weaponLevel]; i++)
+            for (int i = 0; i < weaponCountOnLevel[weaponLevel] && i < targetDetecter.targets.Length; i++)
             {
-                Attack(targetDetecter.targets[i].transform.position);
+                if (targetDetecter.hasTarget)
+                {
+                    Attack(targetDetecter.targets[i].transform.position);
+                }
             }
         }
     }
@@ -72,8 +74,7 @@ public class BombShooter : MonoBehaviour, IWeapon
     {
         Vector3 currentPosition = transform.position;
         currentPosition.y += 0.5f;
-        GameObject bomb = BulletPool.Instance.GetBullet(bulletID, currentPosition, Quaternion.identity, targetPosition, damage);
-        bomb.GetComponent<Bomb>().damage = damage;
+        GameObject bomb = BulletPool.Instance.GetBullet(bulletID, currentPosition, Quaternion.identity, targetPosition, damageOnLevel[weaponLevel]);
 
         float gravity = Physics.gravity.y;
 
@@ -88,7 +89,6 @@ public class BombShooter : MonoBehaviour, IWeapon
         Vector3 initialVelocity = new Vector3(deltaXZ.x / reachTime, Vy, deltaXZ.z / reachTime);
 
         Rigidbody bombRigidbody = bomb.GetComponent<Rigidbody>();
-        Debug.Log(initialVelocity);
         bombRigidbody.velocity = initialVelocity;
     }
 
