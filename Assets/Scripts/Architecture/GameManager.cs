@@ -29,11 +29,18 @@ public class GameManager : MonoBehaviour
     
     public bool isGameStarted = false;
 
+    private void Start()
+    {
+        // 시작 능력을 고름
+        abilitySetter.Init(OnLevelUp);
+        abilitySetter.ReadyToChoose();
+    }
+
     private void Update()
     {
         if (playerExp >= nextExp)
         {
-            levelUP();
+            LevelUp();
         }
 
         if (isGameStarted)
@@ -47,13 +54,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void levelUP()
+    public void LevelUp()
     {
         abilitySetter.gameObject.SetActive(true);
         abilitySetter.ReadyToChoose();
         level++;
         playerExp = 0;
         nextExp = nextExp * nextExpRatio;
+    }
+    private void OnLevelUp()
+    {
+        if (!isGameStarted)
+            GameStart();
+
+        abilitySetter.gameObject.SetActive(false);
     }
 
     void Awake()

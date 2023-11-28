@@ -20,6 +20,8 @@ public abstract class Weapon : MonoBehaviour, IWeapon
     protected Ability _ability;
     protected int _weaponLevel;
 
+    public bool IsMaxLevel => _weaponLevel == CONST.ABILITY_MAX_LEVEL;
+
     public Ability GetAbility()
     {
         return _ability;
