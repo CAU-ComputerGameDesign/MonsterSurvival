@@ -56,7 +56,8 @@ public class TentacleShooter : Weapon
                     targetDetecter.GetNearest();
                     targetDetected = true;
                 }
-                if (targetDetecter.hasTarget && Vector3.Distance(targetDetecter.targets[i].transform.position, transform.position) < range)
+                if (targetDetecter.HasTarget(i) &&
+                    Vector3.Distance(targetDetecter.targets[i].transform.position, transform.position) < range)
                 {
                     Attack(i, targetDetecter.targets[i].transform.position);
                 }

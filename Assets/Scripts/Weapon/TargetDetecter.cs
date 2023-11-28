@@ -24,6 +24,7 @@ public class TargetDetecter : MonoBehaviour
         IWeapon[] list = GetComponentsInChildren<IWeapon>(true);
     }
 
+    public bool HasTarget(int i) { return targets.Length > i; }
     public void GetNearest()
     {
         targets = Physics.OverlapSphere(transform.position, scanRange, targetLayer);
