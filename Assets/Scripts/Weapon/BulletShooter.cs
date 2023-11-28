@@ -3,13 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletShooter : MonoBehaviour, IWeapon
+public class BulletShooter : Weapon
 {
-    public int bulletID = 0;
+    public override int BulletID => 0;
 
     public TargetDetecter targetDetecter;
-
-    public int weaponLevel = 0;
 
     public bool canShoot = true;
 
@@ -17,13 +15,11 @@ public class BulletShooter : MonoBehaviour, IWeapon
     public float[] shootRateOnLevel;
     public int[] weaponCountOnLevel;
 
-    public Ability ability;
-
     public void Start()
     {
-        damageOnLevel = ability.damages;
-        shootRateOnLevel = ability.fireRates;
-        weaponCountOnLevel = ability.counts;
+        damageOnLevel = _ability.damages;
+        shootRateOnLevel = _ability.fireRates;
+        weaponCountOnLevel = _ability.counts;
     }
 
     public void Update()
@@ -32,7 +28,7 @@ public class BulletShooter : MonoBehaviour, IWeapon
         {
             targetDetecter.GetNearest();
             StartCoroutine("shootCooldown");
-            for (int i = 0; i < weaponCountOnLevel[weaponLevel] && i < targetDetecter.targets.Length; i++)
+            for (int i = 0; i < weaponCountOnLevel[_weaponLevel] && i < targetDetecter.targets.Length; i++)
             {
                 if (targetDetecter.hasTarget)
                 {
@@ -42,14 +38,10 @@ public class BulletShooter : MonoBehaviour, IWeapon
         }
     }
     
-    public void WeaponLevelUp()
-    {
-        weaponLevel++;
-    }
     private IEnumerator shootCooldown()
     {
         canShoot = false;
-        yield return new WaitForSeconds(shootRateOnLevel[weaponLevel]);
+        yield return new WaitForSeconds(shootRateOnLevel[_weaponLevel]);
         canShoot = true;
     }
 
@@ -57,7 +49,7 @@ public class BulletShooter : MonoBehaviour, IWeapon
     {
         targetPosition.y += 0.2f;
         Quaternion rot = Quaternion.LookRotation(targetPosition - transform.position);
-        BulletPool.Instance.GetBullet(bulletID, transform.position, rot, targetPosition, damageOnLevel[weaponLevel]);
+        BulletPool.Instance.GetBullet(BulletID, transform.position, rot, targetPosition, damageOnLevel[_weaponLevel]);
     }
 
     public void Attack()

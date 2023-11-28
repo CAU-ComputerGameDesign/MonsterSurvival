@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> expPool = new List<GameObject>();
     public GameObject expPrefab;
 
-    public GameObject AbilitySetter;
+    public ChooseAbility abilitySetter;
     
     public bool isGameStarted = false;
 
@@ -49,7 +49,8 @@ public class GameManager : MonoBehaviour
 
     public void levelUP()
     {
-        AbilitySetter.SetActive(true);
+        abilitySetter.gameObject.SetActive(true);
+        abilitySetter.ReadyToChoose();
         level++;
         playerExp = 0;
         nextExp = nextExp * nextExpRatio;

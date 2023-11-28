@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombShooter : MonoBehaviour, IWeapon
+public class BombShooter : Weapon
 {
-    public int bulletID = 1;
+    public override int BulletID => 1;
 
     public TargetDetecter targetDetecter;
 
@@ -15,26 +15,15 @@ public class BombShooter : MonoBehaviour, IWeapon
     [SerializeField]
     private float predictAmount = 2f;
     
-    
-    public int weaponLevel = 0;
-
-    
     public float[] damageOnLevel;
     public float[] shootRateOnLevel;
     public int[] weaponCountOnLevel;
 
-    public Ability ability;
-
     public void Start()
     {
-        damageOnLevel = ability.damages;
-        shootRateOnLevel = ability.fireRates;
-        weaponCountOnLevel = ability.counts;
-    }
-
-    public void WeaponLevelUp()
-    {
-        weaponLevel++;
+        damageOnLevel = _ability.damages;
+        shootRateOnLevel = _ability.fireRates;
+        weaponCountOnLevel = _ability.counts;
     }
 
     public bool CanAttack()
@@ -52,7 +41,7 @@ public class BombShooter : MonoBehaviour, IWeapon
         {
             targetDetecter.GetNearest();
             StartCoroutine("shootCooldown");
-            for (int i = 0; i < weaponCountOnLevel[weaponLevel] && i < targetDetecter.targets.Length; i++)
+            for (int i = 0; i < weaponCountOnLevel[_weaponLevel] && i < targetDetecter.targets.Length; i++)
             {
                 if (targetDetecter.hasTarget)
                 {
@@ -66,7 +55,7 @@ public class BombShooter : MonoBehaviour, IWeapon
     private IEnumerator shootCooldown()
     {
         canShoot = false;
-        yield return new WaitForSeconds(shootRateOnLevel[weaponLevel]);
+        yield return new WaitForSeconds(shootRateOnLevel[_weaponLevel]);
         canShoot = true;
     }
     
@@ -74,7 +63,7 @@ public class BombShooter : MonoBehaviour, IWeapon
     {
         Vector3 currentPosition = transform.position;
         currentPosition.y += 0.5f;
-        GameObject bomb = BulletPool.Instance.GetBullet(bulletID, currentPosition, Quaternion.identity, targetPosition, damageOnLevel[weaponLevel]);
+        GameObject bomb = BulletPool.Instance.GetBullet(BulletID, currentPosition, Quaternion.identity, targetPosition, damageOnLevel[_weaponLevel]);
 
         float gravity = Physics.gravity.y;
 

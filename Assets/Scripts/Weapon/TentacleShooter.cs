@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using MimicSpace;
 using UnityEngine;
 
-public class TentacleShooter : MonoBehaviour, IWeapon
+public class TentacleShooter : Weapon
 {
-    public int bulletID = 2;
+    public override int BulletID => 2;
 
     private Mimic mimic;
     private List<Tentacle> tentacles = new List<Tentacle>();
 
-    public int weaponLevel = 0;
     public TargetDetecter targetDetecter;
 
     public bool canShoot = true;
@@ -21,35 +20,34 @@ public class TentacleShooter : MonoBehaviour, IWeapon
     public float[] shootRateOnLevel;
     public int[] weaponCountOnLevel;
 
-    public Ability ability;
-
     public void Start()
     {
         mimic = GetComponentInParent<Mimic>();
         tentacles.Add(mimic.GetTentacle());
 
-        damageOnLevel = ability.damages;
-        shootRateOnLevel = ability.fireRates;
-        weaponCountOnLevel = ability.counts;
+        damageOnLevel = _ability.damages;
+        shootRateOnLevel = _ability.fireRates;
+        weaponCountOnLevel = _ability.counts;
     }
-    public void WeaponLevelUp()
+
+    protected override void OnWeaponLevelUp()
     {
-        weaponLevel++;
-        while (weaponCountOnLevel[weaponLevel] > tentacles.Count)
+        base.OnWeaponLevelUp();
+        while (weaponCountOnLevel[_weaponLevel] > tentacles.Count)
         {
             tentacles.Add(mimic.GetTentacle());
         }
 
         for (int i = 0; i < tentacles.Count; i++)
         {
-            tentacles[i].hitRate = shootRateOnLevel[weaponLevel];
+            tentacles[i].hitRate = shootRateOnLevel[_weaponLevel];
         }
     }
 
     public void Update()
     {
         bool targetDetected = false;
-        for (int i = 0; i < weaponCountOnLevel[weaponLevel] && i < targetDetecter.targets.Length; i++)
+        for (int i = 0; i < weaponCountOnLevel[_weaponLevel] && i < targetDetecter.targets.Length; i++)
         {
             if (tentacles[i].canAttack)
             {
@@ -66,16 +64,15 @@ public class TentacleShooter : MonoBehaviour, IWeapon
         }
     }
 
-
     private IEnumerator shootCooldown()
     {
         canShoot = false;
-        yield return new WaitForSeconds(shootRateOnLevel[weaponLevel]);
+        yield return new WaitForSeconds(shootRateOnLevel[_weaponLevel]);
         canShoot = true;
     }
     public void Attack(int i, Vector3 targetPosition)
     {
-        tentacles[i].Attack(targetPosition, damageOnLevel[weaponLevel]);
+        tentacles[i].Attack(targetPosition, damageOnLevel[_weaponLevel]);
     }
 
     public void Attack()
