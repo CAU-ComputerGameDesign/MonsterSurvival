@@ -31,7 +31,8 @@ public class Bomb : MonoBehaviour, IBullet
 
     private void OnEnable()
     {
-        collider.enabled = true;
+        if (collider != null)
+            collider.enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)
