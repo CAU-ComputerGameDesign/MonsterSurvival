@@ -9,9 +9,9 @@ public class ChooseAbility : MonoBehaviour
     [SerializeField] List<Weapon> weaponList;
     [SerializeField] List<AbilitySetter> _setterUIs;
 
-    private Action _onComplete;
+    private Action<Weapon> _onComplete;
 
-    public void Init(Action onComplete)
+    public void Init(Action<Weapon> onComplete)
     {
         _onComplete = onComplete;
 
@@ -26,7 +26,7 @@ public class ChooseAbility : MonoBehaviour
         List<Weapon> weaponToChoose = weaponList.Where(weapon => weapon.IsMaxLevel == false).ToList();
         
         int chooseCount = Math.Min(_setterUIs.Count, weaponToChoose.Count);
-        if (chooseCount == 0) { _onComplete?.Invoke(); return; }
+        if (chooseCount == 0) { _onComplete?.Invoke(null); return; }
 
         weaponToChoose = weaponToChoose.ChooseRandom(chooseCount);
 
@@ -43,8 +43,8 @@ public class ChooseAbility : MonoBehaviour
 
     public void SelectAbility(int bulletID)
     {
-        weaponList[bulletID].WeaponLevelUp();
-
-        _onComplete?.Invoke();
+        Weapon selected = weaponList[bulletID];
+        selected.WeaponLevelUp();
+        _onComplete?.Invoke(selected);
     }
 }

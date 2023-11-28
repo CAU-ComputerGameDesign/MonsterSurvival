@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public GameObject expPrefab;
 
     public ChooseAbility abilitySetter;
+    public UISetter uiSetter;
     
     public bool isGameStarted = false;
 
@@ -62,12 +63,17 @@ public class GameManager : MonoBehaviour
         playerExp = 0;
         nextExp = nextExp * nextExpRatio;
     }
-    private void OnLevelUp()
+    private void OnLevelUp(Weapon weapon)
     {
         if (!isGameStarted)
             GameStart();
 
         abilitySetter.gameObject.SetActive(false);
+
+        if (weapon != null)
+        {
+            uiSetter.SetAbilityUI(weapon);
+        }
     }
 
     void Awake()
