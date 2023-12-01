@@ -9,6 +9,7 @@ public class UISetter : MonoBehaviour
     public Slider slider;
     public TextMeshProUGUI time;
     public TextMeshProUGUI level;
+    public Slider hpSlider;
 
     [SerializeField] AbilityIcon _abilityIconPrefab;
     [SerializeField] Transform _abilityIconParent;
@@ -23,6 +24,7 @@ public class UISetter : MonoBehaviour
     {
         GameManager gm = GameManager.Instance;
         slider.value = gm.playerExp / gm.nextExp;
+        hpSlider.value = gm.hpValue;
 
         float remainTime = gm.maxTime - gm.gameTime;
         int min = Mathf.FloorToInt(remainTime / 60);

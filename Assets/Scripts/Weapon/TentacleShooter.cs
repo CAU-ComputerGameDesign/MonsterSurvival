@@ -74,6 +74,7 @@ public class TentacleShooter : Weapon
     public void Attack(int i, Vector3 targetPosition)
     {
         tentacles[i].Attack(targetPosition, damageOnLevel[_weaponLevel]);
+        SoundEffect.instance.PlayTentacle();
     }
 
     public void Attack()

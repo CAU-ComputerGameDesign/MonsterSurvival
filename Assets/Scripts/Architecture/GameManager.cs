@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public float gameTime = 0f;
     public float maxTime = 20 * 60f;
 
+    public float hpValue = 1;
+
     public List<GameObject> expPool = new List<GameObject>();
     public GameObject expPrefab;
 
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // ½ÃÀÛ ´É·ÂÀ» °í¸§
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½ï¿½ï¿½ ï¿½ï¿½
         abilitySetter.Init(OnLevelUp);
         abilitySetter.ReadyToChoose();
     }
@@ -114,6 +116,16 @@ public class GameManager : MonoBehaviour
     {
         expPool.Add(go);
         go.SetActive(false);
+    }
+
+    public void LooseHp(float value)
+    {
+        hpValue -= value;
+    }
+
+    public void InitializeHp()
+    {
+        hpValue = 1;
     }
 
     public void GameStart()

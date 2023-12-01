@@ -50,6 +50,7 @@ public class BulletShooter : Weapon
         targetPosition.y += 0.2f;
         Quaternion rot = Quaternion.LookRotation(targetPosition - transform.position);
         BulletPool.Instance.GetBullet(BulletID, transform.position, rot, targetPosition, damageOnLevel[_weaponLevel]);
+        SoundEffect.instance.PlayBullet();
     }
 
     public void Attack()

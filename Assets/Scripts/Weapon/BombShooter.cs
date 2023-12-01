@@ -79,6 +79,7 @@ public class BombShooter : Weapon
 
         Rigidbody bombRigidbody = bomb.GetComponent<Rigidbody>();
         bombRigidbody.velocity = initialVelocity;
+        SoundEffect.instance.PlayBomb();
     }
 
     public void Attack()
