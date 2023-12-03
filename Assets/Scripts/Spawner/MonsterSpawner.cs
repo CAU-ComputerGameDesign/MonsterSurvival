@@ -13,7 +13,7 @@ public class MonsterSpawner : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.isGameStarted)
+        if (GameManager.Instance.isGameStarted && !GameManager.Instance.isGameOver)
         {
             transform.position = GameManager.Instance.Player.transform.position;
         

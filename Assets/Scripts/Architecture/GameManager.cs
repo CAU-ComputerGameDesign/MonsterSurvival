@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -29,31 +31,46 @@ public class GameManager : MonoBehaviour
 
     public ChooseAbility abilitySetter;
     public UISetter uiSetter;
+    public AskReplayMenu replayMenu;
+    public PlayerController playerController;
     
     public bool isGameStarted = false;
+    public bool isGameOver = false;
+
+    public Text Score;
 
     private void Start()
     {
         // ���� �ɷ��� ��
         abilitySetter.Init(OnLevelUp);
         abilitySetter.ReadyToChoose();
+        Score = replayMenu.GetComponent<Text>();
     }
 
     private void Update()
     {
-        if (playerExp >= nextExp)
+        if (!isGameOver)
         {
-            LevelUp();
+            if (playerExp >= nextExp)
+            {
+                LevelUp();
+            }
+
+            if (isGameStarted)
+            {
+                if (gameTime < maxTime)
+                {
+                    gameTime += Time.deltaTime;
+                }
+                else
+                    gameTime = maxTime;
+            }
         }
 
-        if (isGameStarted)
+        if (hpValue<=0 && isGameOver==false)
         {
-            if (gameTime < maxTime)
-            {
-                gameTime += Time.deltaTime;
-            }
-            else
-                gameTime = maxTime;
+            GameOver();
+            isGameOver = true;
         }
     }
 
@@ -131,5 +148,27 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         isGameStarted = true;
+    }
+
+    public void GameRestart()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void GameOver()
+    {
+        playerController.gameObject.SetActive(false);
+        replayMenu.gameObject.SetActive(true);
+        
+        isGameOver = true;
+    }
+
+    public void GameExit()
+    {
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+                Application.Quit();
+        #endif
     }
 }

@@ -26,6 +26,7 @@ public class AnimalsController : MonoBehaviour
     public float hp = 3f;
 
     public float expAmount = 1f;
+    public float damage = 0.3f;
     
     // Start is called before the first frame update
 
@@ -130,8 +131,7 @@ public class AnimalsController : MonoBehaviour
         canMove = false;
         animator.Play("Hit");
         StartCoroutine("HitFlash");
-        StartCoroutine("HitMove");
-        
-        
+        StartCoroutine("HitMove");  
     }
+
 }
