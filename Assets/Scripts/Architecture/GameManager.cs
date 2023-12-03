@@ -37,14 +37,13 @@ public class GameManager : MonoBehaviour
     public bool isGameStarted = false;
     public bool isGameOver = false;
 
-    public Text Score;
 
     private void Start()
     {
         // ���� �ɷ��� ��
         abilitySetter.Init(OnLevelUp);
         abilitySetter.ReadyToChoose();
-        Score = replayMenu.GetComponent<Text>();
+       
     }
 
     private void Update()
@@ -150,10 +149,10 @@ public class GameManager : MonoBehaviour
         isGameStarted = true;
     }
 
-    public void GameRestart()
+    /*public void GameRestart()
     {
         SceneManager.LoadScene("MainScene");
-    }
+    */
 
     public void GameOver()
     {
