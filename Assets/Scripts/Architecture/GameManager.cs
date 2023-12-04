@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
     public UISetter uiSetter;
     public AskReplayMenu replayMenu;
     public PlayerController playerController;
-    
+    public GameClearScreen gameClearScreen;
+
     public bool isGameStarted = false;
     public bool isGameOver = false;
 
@@ -64,6 +65,10 @@ public class GameManager : MonoBehaviour
                 else
                     gameTime = maxTime;
             }
+        }
+        if (gameTime>=maxTime)
+        {
+            GameClear();
         }
 
         if (hpValue<=0 && isGameOver==false)
@@ -159,6 +164,13 @@ public class GameManager : MonoBehaviour
         playerController.gameObject.SetActive(false);
         replayMenu.gameObject.SetActive(true);
         
+        isGameOver = true;
+    }
+
+    public void GameClear()
+    {
+        gameClearScreen.gameObject.SetActive(false);
+
         isGameOver = true;
     }
 
